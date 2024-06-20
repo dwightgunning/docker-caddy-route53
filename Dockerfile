@@ -1,8 +1,9 @@
 FROM caddy:2.8.4-builder as builder
 
 RUN xcaddy build v2.8.4 \
-    --with github.com/caddy-dns/route53@v1.3.3
-
+    --with github.com/caddy-dns/route53@v1.3.3 \
+    --replace github.com/libdns/route53=github.com/winterqt/libdns-route53@upgrade-aws-sdk
+    
 FROM caddy:2.8.4
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
